@@ -1,1 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yohen_altf 🎀</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(160deg, #ffe6f0 0%, #ffc2d8 40%, #ffaec9 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 48px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥';
+    position: fixed;
+    top: 0; left: -20px; right: -20px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 20px;
+    line-height: 3;
+    pointer-events: none;
+    z-index: 0;
+    word-break: break-all;
+  }
+
+  .wrapper { position: relative; z-index: 1; width: 100%; max-width: 400px; }
+
+  .gate {
+    background: rgba(255,255,255,0.85);
+    border-radius: 28px;
+    border: 3px solid #ff6fa8;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(255,111,168,0.2);
+  }
+  .gate-kitty { font-size: 56px; margin-bottom: 10px; }
+  .gate-title { font-size: 20px; font-weight: 700; color: #c2185b; margin-bottom: 6px; }
+  .gate-sub { font-size: 13px; color: #e91e8c; font-weight: 600; margin-bottom: 22px; }
+
+  .gate input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: 2px solid #ffb3d1;
+    background: #fff0f7;
+    font-size: 15px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    color: #c2185b;
+    outline: none;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .gate input::placeholder { color: #f48fb1; }
+  .gate input:focus { border-color: #ff6fa8; }
+
+  .gate-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #ff6fa8, #e91e8c);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(233,30,140,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .gate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,30,140,0.4); }
+  .gate-btn:active { transform: scale(0.97); }
+  .gate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .gate-err { font-size: 13px; color: #e91e8c; margin-top: 10px; display: none; }
+
+  .main { display: none; }
+
+  .profile {
+    display: flex; flex-direction: column; align-items: center;
+    margin-bottom: 24px;
+  }
+  .avatar-ring {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    border: 4px solid #ff6fa8;
+    box-shadow: 0 0 0 6px rgba(255,111,168,0.2);
+    margin-bottom: 14px;
+    font-size: 58px; line-height: 1;
+  }
+  .name { font-size: 22px; font-weight: 700; color: #c2185b; margin-bottom: 4px; }
+  .tagline { font-size: 13px; color: #d63a7a; font-weight: 600; }
+  .ribbon { display: flex; align-items: center; gap: 8px; margin: 8px 0 22px; color: #ff6fa8; font-size: 18px; }
+
+  .greeting {
+    background: rgba(255,255,255,0.7);
+    border-radius: 999px;
+    padding: 8px 20px;
+    font-size: 13px; font-weight: 700; color: #c2185b;
+    margin-bottom: 20px; text-align: center;
+  }
+
+  .link-btn {
+    display: flex; align-items: center; gap: 14px;
+    width: 100%; padding: 14px 20px;
+    border-radius: 999px;
+    border: 2.5px solid rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(6px);
+    text-decoration: none; color: #c2185b;
+    font-weight: 700; font-size: 15px;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 18px rgba(255,111,168,0.18);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    font-family: 'Quicksand', sans-serif;
+  }
+  .link-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px rgba(255,111,168,0.32); background: rgba(255,255,255,0.92); }
+  .link-btn:active { transform: scale(0.98); }
+
+  .btn-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0; background: #ffe0ef;
+  }
+  .btn-nasib { background: rgba(255,240,247,0.85); border-color: #ff6fa8; }
+  .btn-nasib .btn-icon { background: #ffb3d1; }
+  .btn-ig { background: rgba(255,243,248,0.85); border-color: #e91e8c; }
+  .btn-ig .btn-icon {
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white; font-size: 18px;
+  }
+
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(255,200,220,0.55);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: white; border-radius: 28px;
+    border: 3px solid #ff6fa8;
+    padding: 28px 24px 24px;
+    width: 100%; max-width: 340px;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(255,111,168,0.28);
+    transform: scale(0.92); transition: transform 0.25s;
+  }
+  .modal-overlay.open .modal { transform: scale(1); }
+  .modal-kitty { font-size: 52px; margin-bottom: 6px; }
+  .modal-title { font-size: 18px; font-weight: 700; color: #c2185b; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: #e91e8c; margin-bottom: 20px; font-weight: 600; }
+  .result-box {
+    background: #fff0f7; border: 2px solid #ffb3d1;
+    border-radius: 18px; padding: 18px 14px; margin-bottom: 16px;
+    min-height: 90px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  }
+  .result-emoji { font-size: 36px; }
+  .result-text { font-size: 14px; font-weight: 700; color: #c2185b; line-height: 1.5; }
+  .share-row { display: flex; gap: 10px; margin-bottom: 14px; }
+  .share-btn {
+    flex: 1; padding: 10px; border-radius: 999px;
+    border: 2px solid #ff6fa8; background: #fff0f7;
+    color: #c2185b; font-size: 13px; font-weight: 700;
+    font-family: 'Quicksand', sans-serif; cursor: pointer; transition: background 0.15s;
+  }
+  .share-btn:hover { background: #ffe0ef; }
+  .spin-btn {
+    width: 100%; padding: 14px; border-radius: 999px; border: none;
+    background: linear-gradient(135deg, #ff6fa8, #e91e8c);
+    color: white; font-size: 16px; font-weight: 700;
+    font-family: 'Quicksand', sans-serif; cursor: pointer; margin-bottom: 14px;
+    box-shadow: 0 6px 20px rgba(233,30,140,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .spin-btn:hover { transform: translateY(-2px); }
+  .spin-btn:active { transform: scale(0.97); }
+  .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .close-btn {
+    background: none; border: none; color: #d63a7a;
+    font-size: 13px; font-weight: 600;
+    font-family: 'Quicksand', sans-serif; cursor: pointer; text-decoration: underline;
+  }
+
+  .footer { margin-top: 28px; font-size: 12px; color: #e27bab; font-weight: 600; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- GATE -->
+  <div class="gate" id="gate">
+    <div class="gate-kitty">🎀</div>
+    <div class="gate-title">Halo! Siapa kamu? 🌸</div>
+    <div class="gate-sub">Tulis namamu dulu sebelum masuk ya~</div>
+    <input type="text" id="namaInput" placeholder="Nama kamu..." maxlength="50" />
+    <button class="gate-btn" id="gateBtn" onclick="masuk()">✨ Masuk ✨</button>
+    <div class="gate-err" id="gateErr">Nama tidak boleh kosong ya! 🌸</div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+    <div class="profile">
+      <div class="avatar-ring">🎀</div>
+      <div class="name">yohen_altf</div>
+      <div class="tagline">✨ Hello Kitty Lover ✨</div>
+      <div class="ribbon">❤️ ——— 🌸 ——— ❤️</div>
+    </div>
+
+    <div class="greeting" id="greetingText">Halo! Selamat datang 🌸</div>
+
+    <button class="link-btn btn-nasib" onclick="openModal()">
+      <div class="btn-icon">🔮</div>
+      <span>Tentukan Nasib Anda ✨</span>
+    </button>
+
+    <a class="link-btn btn-ig" href="https://www.instagram.com/yohen_altf?igsh=MXNpcmY0Zm05M3M4dQ==" target="_blank">
+      <div class="btn-icon">📸</div>
+      <span>Instagram @yohen_altf</span>
+    </a>
+
+    <div class="footer">🎀 Made with love · Hello Kitty Theme 🎀</div>
+  </div>
+
+</div>
+
+<!-- Modal Nasib -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-kitty">🔮</div>
+    <div class="modal-title">Tentukan Nasib Anda!</div>
+    <div class="modal-sub">Biarkan Hello Kitty menentukan nasibmu hari ini~ 🎀</div>
+    <div class="result-box">
+      <div class="result-emoji" id="resultEmoji">🌸</div>
+      <div class="result-text" id="resultText">Tekan tombol di bawah untuk mengungkap nasibmu!</div>
+    </div>
+    <div class="share-row" id="shareRow" style="display:none;">
+      <button class="share-btn" onclick="copyResult()">📋 Salin</button>
+      <button class="share-btn" onclick="spinAgain()">🔄 Lagi!</button>
+    </div>
+    <button class="spin-btn" id="spinBtn" onclick="spinNasib()">🎀 Ungkap Nasibku! 🎀</button>
+    <br>
+    <button class="close-btn" onclick="closeModal()">✕ Tutup</button>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://ytpvjyqqggbypdvntukv.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0cHZqeXFxZ2dieXBkdm50dWt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MzI5MDAsImV4cCI6MjA5MjUwODkwMH0.UgO-76LO0Yd0g4ZcAP9Sl-M--j2-IUz8E6kGZM7Xgho';
+
+  async function simpanPengunjung(nama) {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/pengunjung`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        },
+        body: JSON.stringify({ nama: nama })
+      });
+    } catch(e) { console.log('gagal simpan:', e); }
+  }
+
+  async function masuk() {
+    const nama = document.getElementById('namaInput').value.trim();
+    const err = document.getElementById('gateErr');
+    const btn = document.getElementById('gateBtn');
+    if (!nama) { err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = '⏳ Tunggu sebentar...';
+    await simpanPengunjung(nama);
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    document.getElementById('greetingText').textContent = `Halo ${nama}! Selamat datang 🌸`;
+  }
+
+  document.getElementById('namaInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') masuk();
+  });
+
+  const nasibList = [
+    { emoji: "⭐", text: "Hari ini kamu akan bertemu seseorang yang membuat hidupmu lebih berwarna!" },
+    { emoji: "💖", text: "Cinta sedang menunggumu di tikungan berikutnya. Buka hatimu! 🌸" },
+    { emoji: "🌈", text: "Keberuntungan besarmu datang hari ini. Jangan lewatkan peluang!" },
+    { emoji: "🍀", text: "Nasibmu: LUCKY DAY! Semua hal baik akan terjadi padamu 🎀" },
+    { emoji: "😴", text: "Nasibmu hari ini: tidur adalah solusi terbaik. Rebahan dulu yuk~" },
+    { emoji: "🎯", text: "Fokus! Hari ini kamu akan mencapai sesuatu yang sudah lama kamu inginkan." },
+    { emoji: "🌸", text: "Seperti bunga sakura, kamu akan mekar indah hari ini. Percaya diri!" },
+    { emoji: "🤩", text: "Orang-orang di sekitarmu akan terpesona oleh pesonamu hari ini!" },
+    { emoji: "😅", text: "Nasibmu: Awas kepleset! Hati-hati di mana pun kamu melangkah ya~" },
+    { emoji: "🏆", text: "PEMENANG SEJATI! Hari ini adalah harimu untuk bersinar terang!" },
+    { emoji: "🌟", text: "Bintang keberuntungan bersinar untukmu. Jadilah versi terbaikmu!" },
+    { emoji: "💌", text: "Ada kabar baik yang sedang dalam perjalanan menuju hidupmu! 💕" },
+    { emoji: "🎊", text: "Selamat! Nasibmu hari ini: LUAR BIASA! Rayakan dirimu sendiri!" },
+    { emoji: "😪", text: "Nasibmu: Tubuhmu butuh istirahat. Minum air putih dan jaga kesehatan!" },
+    { emoji: "🦋", text: "Transformasi besar sedang terjadi dalam hidupmu. Percayai prosesnya!" },
+  ];
+
+  let spinning = false;
+  function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+  function handleOverlayClick(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+  function spinNasib() {
+    if (spinning) return;
+    spinning = true;
+    const btn = document.getElementById('spinBtn');
+    const emoji = document.getElementById('resultEmoji');
+    const text = document.getElementById('resultText');
+    const shareRow = document.getElementById('shareRow');
+    btn.disabled = true;
+    shareRow.style.display = 'none';
+    const emojis = ['🔮','✨','🎀','🌸','💫','⭐','💖','🌟'];
+    let count = 0;
+    const interval = setInterval(() => {
+      emoji.textContent = emojis[count % emojis.length];
+      text.textContent = '...';
+      count++;
+      if (count >= 12) {
+        clearInterval(interval);
+        const pick = nasibList[Math.floor(Math.random() * nasibList.length)];
+        emoji.textContent = pick.emoji;
+        text.textContent = pick.text;
+        btn.textContent = '🎀 Ungkap Lagi! 🎀';
+        btn.disabled = false;
+        shareRow.style.display = 'flex';
+        spinning = false;
+      }
+    }, 100);
+  }
+
+  function spinAgain() { document.getElementById('shareRow').style.display = 'none'; spinNasib(); }
+
+  function copyResult() {
+    const t = document.getElementById('resultEmoji').textContent + ' ' + document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(t).catch(() => {});
+    const btn = event.target;
+    btn.textContent = '✅ Disalin!';
+    setTimeout(() => btn.textContent = '📋 Salin', 2000);
+  }
+</script>
+</body>
+</html>
 
