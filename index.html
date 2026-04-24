@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>yohen_altf 🎀</title>
+<title>@yohen_altf 🎀</title>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,7 +25,7 @@
     position: fixed;
     top: 0; left: -20px; right: -20px;
     font-size: 24px;
-    color: rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.15);
     letter-spacing: 20px;
     line-height: 3;
     pointer-events: none;
@@ -35,8 +35,9 @@
 
   .wrapper { position: relative; z-index: 1; width: 100%; max-width: 400px; }
 
+  /* GATE */
   .gate {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.88);
     border-radius: 28px;
     border: 3px solid #ff6fa8;
     padding: 32px 24px;
@@ -46,118 +47,183 @@
   .gate-kitty { font-size: 56px; margin-bottom: 10px; }
   .gate-title { font-size: 20px; font-weight: 700; color: #c2185b; margin-bottom: 6px; }
   .gate-sub { font-size: 13px; color: #e91e8c; font-weight: 600; margin-bottom: 22px; }
-
   .gate input {
-    width: 100%;
-    padding: 14px 18px;
+    width: 100%; padding: 14px 18px;
     border-radius: 999px;
     border: 2px solid #ffb3d1;
     background: #fff0f7;
-    font-size: 15px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 600;
-    color: #c2185b;
-    outline: none;
-    margin-bottom: 14px;
-    text-align: center;
+    font-size: 15px; font-family: 'Quicksand', sans-serif;
+    font-weight: 600; color: #c2185b;
+    outline: none; margin-bottom: 14px; text-align: center;
   }
   .gate input::placeholder { color: #f48fb1; }
   .gate input:focus { border-color: #ff6fa8; }
-
   .gate-btn {
-    width: 100%;
-    padding: 14px;
-    border-radius: 999px;
-    border: none;
+    width: 100%; padding: 14px; border-radius: 999px; border: none;
     background: linear-gradient(135deg, #ff6fa8, #e91e8c);
-    color: white;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Quicksand', sans-serif;
-    cursor: pointer;
+    color: white; font-size: 16px; font-weight: 700;
+    font-family: 'Quicksand', sans-serif; cursor: pointer;
     box-shadow: 0 6px 20px rgba(233,30,140,0.3);
     transition: transform 0.15s, box-shadow 0.15s;
   }
-  .gate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,30,140,0.4); }
+  .gate-btn:hover { transform: translateY(-2px); }
   .gate-btn:active { transform: scale(0.97); }
   .gate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .gate-err { font-size: 13px; color: #e91e8c; margin-top: 10px; display: none; }
 
+  /* MAIN */
   .main { display: none; }
 
+  /* Profile */
   .profile {
     display: flex; flex-direction: column; align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .avatar-ring {
-    width: 100px; height: 100px; border-radius: 50%;
-    background: white;
-    display: flex; align-items: center; justify-content: center;
+    width: 96px; height: 96px; border-radius: 50%;
     border: 4px solid #ff6fa8;
-    box-shadow: 0 0 0 6px rgba(255,111,168,0.2);
-    margin-bottom: 14px;
-    font-size: 58px; line-height: 1;
+    box-shadow: 0 0 0 4px rgba(255,111,168,0.25), 0 8px 24px rgba(255,111,168,0.3);
+    margin-bottom: 12px;
+    overflow: hidden;
+    background: #ffe0ef;
   }
-  .name { font-size: 22px; font-weight: 700; color: #c2185b; margin-bottom: 4px; }
-  .tagline { font-size: 13px; color: #d63a7a; font-weight: 600; }
-  .ribbon { display: flex; align-items: center; gap: 8px; margin: 8px 0 22px; color: #ff6fa8; font-size: 18px; }
-
-  .greeting {
-    background: rgba(255,255,255,0.7);
-    border-radius: 999px;
-    padding: 8px 20px;
-    font-size: 13px; font-weight: 700; color: #c2185b;
-    margin-bottom: 20px; text-align: center;
+  .avatar-ring img {
+    width: 100%; height: 100%; object-fit: cover;
   }
+  .name { font-size: 20px; font-weight: 700; color: #c2185b; margin-bottom: 4px; }
+  .tagline { font-size: 13px; color: #d63a7a; font-weight: 600; margin-bottom: 6px; }
 
-  .link-btn {
-    display: flex; align-items: center; gap: 14px;
-    width: 100%; padding: 14px 20px;
-    border-radius: 999px;
-    border: 2.5px solid rgba(255,255,255,0.7);
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(6px);
-    text-decoration: none; color: #c2185b;
-    font-weight: 700; font-size: 15px;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 18px rgba(255,111,168,0.18);
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-    font-family: 'Quicksand', sans-serif;
+  /* Social icons row */
+  .social-icons {
+    display: flex; gap: 14px; margin: 8px 0 20px;
   }
-  .link-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px rgba(255,111,168,0.32); background: rgba(255,255,255,0.92); }
-  .link-btn:active { transform: scale(0.98); }
-
-  .btn-icon {
+  .soc-icon {
     width: 36px; height: 36px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0; background: #ffe0ef;
+    font-size: 18px;
+    background: rgba(255,255,255,0.7);
+    border: 2px solid rgba(255,111,168,0.3);
+    text-decoration: none;
+    transition: transform 0.15s;
   }
-  .btn-nasib { background: rgba(255,240,247,0.85); border-color: #ff6fa8; }
-  .btn-nasib .btn-icon { background: #ffb3d1; }
-  .btn-ig { background: rgba(255,243,248,0.85); border-color: #e91e8c; }
-  .btn-ig .btn-icon {
-    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    color: white; font-size: 18px;
+  .soc-icon:hover { transform: scale(1.15); }
+
+  .greeting {
+    background: rgba(255,255,255,0.65);
+    border-radius: 999px;
+    padding: 7px 18px;
+    font-size: 13px; font-weight: 700; color: #c2185b;
+    margin-bottom: 22px; text-align: center;
   }
 
+  /* Section label */
+  .section-label {
+    font-size: 11px; font-weight: 700; color: #d63a7a;
+    letter-spacing: 2px; text-transform: uppercase;
+    text-align: center; margin: 4px 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::before, .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(255,111,168,0.3);
+  }
+
+  /* SQUARE / RECT buttons like Linktree */
+  .link-btn {
+    display: flex; align-items: center;
+    width: 100%; padding: 16px 20px;
+    border-radius: 14px;
+    border: 2.5px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.82);
+    text-decoration: none; color: #c2185b;
+    font-weight: 700; font-size: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(255,111,168,0.15);
+    cursor: pointer; position: relative;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    font-family: 'Quicksand', sans-serif;
+    gap: 0;
+  }
+  .link-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,111,168,0.28); background: rgba(255,255,255,0.95); }
+  .link-btn:active { transform: scale(0.98); }
+
+  .btn-icon-sq {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    margin-right: 14px;
+  }
+  .btn-label { flex: 1; text-align: center; font-size: 15px; font-weight: 700; }
+
+  /* Button color variants */
+  .btn-nasib { background: linear-gradient(135deg, rgba(255,240,247,0.9), rgba(255,220,238,0.9)); border-color: #ffb3d1; }
+  .btn-nasib .btn-icon-sq { background: #ffb3d1; }
+
+  .btn-ig .btn-icon-sq { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+  .btn-ig { color: #c2185b; }
+
+  .btn-wa { color: #128c3e; border-color: #b2f0c8; background: rgba(240,255,246,0.88); }
+  .btn-wa .btn-icon-sq { background: #25d366; }
+
+  .btn-tele { color: #1a6f9a; border-color: #b3dff5; background: rgba(240,250,255,0.88); }
+  .btn-tele .btn-icon-sq { background: #229ed9; }
+
+  /* Business card */
+  .biz-card {
+    background: rgba(255,255,255,0.88);
+    border-radius: 18px;
+    border: 2.5px solid #ff6fa8;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 18px rgba(255,111,168,0.15);
+  }
+  .biz-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+  }
+  .biz-logo {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: linear-gradient(135deg, #ff6fa8, #e91e8c);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .biz-info { flex: 1; }
+  .biz-name { font-size: 15px; font-weight: 700; color: #c2185b; margin-bottom: 3px; }
+  .biz-badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    background: #fff0f7; color: #e91e8c;
+    border: 1.5px solid #ffb3d1; border-radius: 999px; padding: 2px 10px;
+  }
+  .biz-desc {
+    font-size: 13px; color: #999; font-weight: 600;
+    margin-bottom: 12px; line-height: 1.5;
+    padding: 10px 12px; background: #fff7fb;
+    border-radius: 10px; border-left: 3px solid #ff6fa8;
+  }
+  .biz-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 12px;
+    border-radius: 10px; border: none;
+    background: linear-gradient(135deg, #25d366, #1ebe5d);
+    color: white; font-size: 14px; font-weight: 700;
+    font-family: 'Quicksand', sans-serif; cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(37,211,102,0.3);
+    transition: transform 0.15s;
+  }
+  .biz-btn:hover { transform: translateY(-2px); }
+
+  /* Modal */
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(255,200,220,0.55);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    background: rgba(255,200,220,0.55); backdrop-filter: blur(4px);
+    z-index: 100; display: flex; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
   }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
   .modal {
-    background: white; border-radius: 28px;
-    border: 3px solid #ff6fa8;
-    padding: 28px 24px 24px;
-    width: 100%; max-width: 340px;
-    text-align: center;
-    box-shadow: 0 16px 48px rgba(255,111,168,0.28);
+    background: white; border-radius: 28px; border: 3px solid #ff6fa8;
+    padding: 28px 24px 24px; width: 100%; max-width: 340px;
+    text-align: center; box-shadow: 0 16px 48px rgba(255,111,168,0.28);
     transform: scale(0.92); transition: transform 0.25s;
   }
   .modal-overlay.open .modal { transform: scale(1); }
@@ -167,8 +233,8 @@
   .result-box {
     background: #fff0f7; border: 2px solid #ffb3d1;
     border-radius: 18px; padding: 18px 14px; margin-bottom: 16px;
-    min-height: 90px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    min-height: 90px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 6px;
   }
   .result-emoji { font-size: 36px; }
   .result-text { font-size: 14px; font-weight: 700; color: #c2185b; line-height: 1.5; }
@@ -177,7 +243,7 @@
     flex: 1; padding: 10px; border-radius: 999px;
     border: 2px solid #ff6fa8; background: #fff0f7;
     color: #c2185b; font-size: 13px; font-weight: 700;
-    font-family: 'Quicksand', sans-serif; cursor: pointer; transition: background 0.15s;
+    font-family: 'Quicksand', sans-serif; cursor: pointer;
   }
   .share-btn:hover { background: #ffe0ef; }
   .spin-btn {
@@ -186,10 +252,9 @@
     color: white; font-size: 16px; font-weight: 700;
     font-family: 'Quicksand', sans-serif; cursor: pointer; margin-bottom: 14px;
     box-shadow: 0 6px 20px rgba(233,30,140,0.35);
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.15s;
   }
   .spin-btn:hover { transform: translateY(-2px); }
-  .spin-btn:active { transform: scale(0.97); }
   .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .close-btn {
     background: none; border: none; color: #d63a7a;
@@ -216,24 +281,63 @@
 
   <!-- MAIN -->
   <div class="main" id="main">
+
     <div class="profile">
-      <div class="avatar-ring">🎀</div>
-      <div class="name">yohen_altf</div>
-      <div class="tagline">✨ Hello Kitty Lover ✨</div>
-      <div class="ribbon">❤️ ——— 🌸 ——— ❤️</div>
+      <div class="avatar-ring">
+        <img src="https://i.ibb.co.com/NnVsyJzs/Screenshot-2026-04-24-150237.png" alt="yohen_altf" />
+      </div>
+      <div class="name">@yohen_altf</div>
+      <div class="tagline">✨ Hello Kitty Lover · Gamer 🎮 ✨</div>
+      <div class="social-icons">
+        <a class="soc-icon" href="https://www.instagram.com/yohen_altf?igsh=MXNpcmY0Zm05M3M4dQ==" target="_blank">📸</a>
+        <a class="soc-icon" href="https://wa.me/6281532101948" target="_blank">💬</a>
+        <a class="soc-icon" href="https://t.me/Yoricih" target="_blank">✈️</a>
+      </div>
     </div>
 
     <div class="greeting" id="greetingText">Halo! Selamat datang 🌸</div>
 
+    <!-- Sosmed -->
+    <div class="section-label">Sosial Media</div>
+
     <button class="link-btn btn-nasib" onclick="openModal()">
-      <div class="btn-icon">🔮</div>
-      <span>Tentukan Nasib Anda ✨</span>
+      <div class="btn-icon-sq">🔮</div>
+      <span class="btn-label">Tentukan Nasib Anda ✨</span>
     </button>
 
     <a class="link-btn btn-ig" href="https://www.instagram.com/yohen_altf?igsh=MXNpcmY0Zm05M3M4dQ==" target="_blank">
-      <div class="btn-icon">📸</div>
-      <span>Instagram @yohen_altf</span>
+      <div class="btn-icon-sq">📸</div>
+      <span class="btn-label">Instagram</span>
     </a>
+
+    <a class="link-btn btn-wa" href="https://wa.me/6281532101948" target="_blank">
+      <div class="btn-icon-sq">💬</div>
+      <span class="btn-label">WhatsApp</span>
+    </a>
+
+    <a class="link-btn btn-tele" href="https://t.me/Yoricih" target="_blank">
+      <div class="btn-icon-sq">✈️</div>
+      <span class="btn-label">Telegram</span>
+    </a>
+
+    <!-- Business -->
+    <div class="section-label">Business</div>
+
+    <div class="biz-card">
+      <div class="biz-header">
+        <div class="biz-logo">🎮</div>
+        <div class="biz-info">
+          <div class="biz-name">Business Kolaborasi Game</div>
+          <span class="biz-badge">Bisnis · Gabut Tapi Serius 🌸</span>
+        </div>
+      </div>
+      <div class="biz-desc">
+        Tertarik kolaborasi di dunia game? Open untuk kerja sama, collab konten, dan hal seru lainnya~ 🎮✨
+      </div>
+      <a class="biz-btn" href="https://wa.me/6281532101948?text=Halo%20yohen!%20Aku%20tertarik%20untuk%20kolaborasi%20game%20bareng%20kamu%20🎮" target="_blank">
+        💬 Hubungi via WhatsApp
+      </a>
+    </div>
 
     <div class="footer">🎀 Made with love · Hello Kitty Theme 🎀</div>
   </div>
@@ -326,29 +430,23 @@
     const emoji = document.getElementById('resultEmoji');
     const text = document.getElementById('resultText');
     const shareRow = document.getElementById('shareRow');
-    btn.disabled = true;
-    shareRow.style.display = 'none';
+    btn.disabled = true; shareRow.style.display = 'none';
     const emojis = ['🔮','✨','🎀','🌸','💫','⭐','💖','🌟'];
     let count = 0;
     const interval = setInterval(() => {
       emoji.textContent = emojis[count % emojis.length];
-      text.textContent = '...';
-      count++;
+      text.textContent = '...'; count++;
       if (count >= 12) {
         clearInterval(interval);
         const pick = nasibList[Math.floor(Math.random() * nasibList.length)];
-        emoji.textContent = pick.emoji;
-        text.textContent = pick.text;
+        emoji.textContent = pick.emoji; text.textContent = pick.text;
         btn.textContent = '🎀 Ungkap Lagi! 🎀';
-        btn.disabled = false;
-        shareRow.style.display = 'flex';
-        spinning = false;
+        btn.disabled = false; shareRow.style.display = 'flex'; spinning = false;
       }
     }, 100);
   }
 
   function spinAgain() { document.getElementById('shareRow').style.display = 'none'; spinNasib(); }
-
   function copyResult() {
     const t = document.getElementById('resultEmoji').textContent + ' ' + document.getElementById('resultText').textContent;
     navigator.clipboard.writeText(t).catch(() => {});
@@ -359,4 +457,3 @@
 </script>
 </body>
 </html>
-
